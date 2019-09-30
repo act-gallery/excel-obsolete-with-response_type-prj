@@ -20,6 +20,7 @@ package demo.excel;
  * #L%
  */
 
+import act.annotations.Label;
 import act.data.annotation.Data;
 
 @Data
@@ -29,29 +30,20 @@ public class Employee {
         E06, E07, E08, E09, E10, E11
     }
 
-    private String id;
-    private String firstName;
-    private String lastName;
-    private Grade grade;
+    @Label("工号")
+    public String id;
 
-    public String getId() {
-        return id;
-    }
+    @Label("名")
+    public String firstName;
+
+    @Label("姓")
+    public String lastName;
+
+    @Label("级别")
+    public Grade grade;
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public void setLastName(String lastName) {
@@ -62,10 +54,6 @@ public class Employee {
         String[] sa = fullName.split("[\\s]+");
         this.firstName = sa[0];
         this.lastName = sa[1];
-    }
-
-    public Grade getGrade() {
-        return grade;
     }
 
     public void setGrade(Grade grade) {
