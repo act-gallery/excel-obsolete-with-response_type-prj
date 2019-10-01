@@ -1,7 +1,9 @@
-@args String title = "Excel Demo"
+@args String title = "Excel Demo App"
 @extends(_base, title: title)
-@import demo.excel.Employee
-  <h1>@title</h1>
+@import demo.excel.*
+  <h1>
+    @title <span id="version">@AppEntry.VERSION.getVersion()</span>
+  </h1>
 
   <style>
     body {
@@ -31,6 +33,9 @@
     ul li {
       padding: 3px 0;
     }
+    span#version {
+      font-size: 10pt
+    }
   </style>
 
   @def menuItem(String url, String label) {
@@ -53,8 +58,8 @@
       @menuItem("/csv", "Download csv file")
       @menuItem("/xls", "Download xls file")
       @menuItem("/xlsx", "Download xlsx file")
-      @menuItem("/template/xls", "Download xls file", "rendered with <a target='_blank' href='http://jxls.sourceforge.net/'>JXLS</a> template")
-      @menuItem("/template/xlsx", "Download xlsx file", "rendered with <a target='_blank' href='http://jxls.sourceforge.net/'>JXLS</a> template")
+      @menuItem("/template/xls", "Download xls file", "rendered with <a target='_blank' href='http://jxls.sourceforge.net/'>JXLS</a> <a target='_blank' href='https://github.com/act-gallery/excel/blob/master/src/main/resources/excel/demo/excel/EmployeeService/template.xls'>template</a>")
+      @menuItem("/template/xlsx", "Download xlsx file", "rendered with <a target='_blank' href='http://jxls.sourceforge.net/'>JXLS</a> <a target='_blank' href='https://github.com/act-gallery/excel/blob/master/src/main/resources/excel/demo/excel/EmployeeService/template.xlsx'>template</a>")
     </ul>
   </div>
 

@@ -9,9 +9,9 @@ package demo.excel;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,21 +59,24 @@ public class TestDataGenerator extends ElementLoaderBase<Employee> {
         nameList.addAll(names);
         Collections.shuffle(nameList);
         for (String name : nameList) {
-            testData.add(generateEmployee(app.cuid(), name, $.random(grades)));
+            S.Pair namePair = S.binarySplit(name, ' ');
+            testData.add(generateEmployee(app.cuid(), namePair.first(), namePair.last(), $.random(grades)));
         }
     }
 
-    private Employee generateEmployee(String id, String name, Employee.Grade grade) {
+    private Employee generateEmployee(String id, String firstName, String lastName, Employee.Grade grade) {
         Employee employee = new Employee();
-        employee.setId(id);
-        employee.setFullName(name);
-        employee.setGrade(grade);
+        employee.id = id;
+        employee.firstName = firstName;
+        employee.lastName = lastName;
+        employee.grade = grade;
         return employee;
     }
 
 
     private static List<String> names = C.listOf(
-            ("Jess Branch  \n" +
+            (
+                    "Jess Branch  \n" +
                     "Ashlie Lineberry  \n" +
                     "Greta Barrette  \n" +
                     "Claire Spurrier  \n" +
@@ -122,5 +125,6 @@ public class TestDataGenerator extends ElementLoaderBase<Employee> {
                     "Erlinda Joachim  \n" +
                     "Ruthie Soules  \n" +
                     "Homer Baptiste  \n" +
-                    "Jovita Lahman").split("[\n]")).map(S.F.TRIM);
+                    "Jovita Lahman"
+            ).split("[\n]")).map(S.F.TRIM);
 }

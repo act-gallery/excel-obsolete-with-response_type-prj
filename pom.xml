@@ -28,7 +28,7 @@
   <url>http://actframework.org/</url>
 
   <properties>
-    <app.entry>demo.excel.ExcelApp</app.entry>
+    <app.entry>demo.excel.AppEntry</app.entry>
   </properties>
 
   <parent>

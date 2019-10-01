@@ -25,6 +25,8 @@ import act.cli.Command;
 import act.util.PropertySpec;
 import org.osgl.inject.annotation.LoadCollection;
 import org.osgl.mvc.annotation.GetAction;
+import osgl.version.Version;
+import osgl.version.Versioned;
 
 import java.util.List;
 
@@ -32,22 +34,10 @@ import java.util.List;
  * A sample application demonstrate how to generate Excel/csv report in Act
  */
 @SuppressWarnings("unused")
-public class ExcelApp {
+@Versioned
+public class AppEntry {
 
-    @LoadCollection(TestDataGenerator.class)
-    private List<Employee> employees;
-
-    @GetAction("template")
-    public List<Employee> template() {
-        return employees;
-    }
-
-    @GetAction
-    @Command("list")
-    @PropertySpec(cli = "id, firstName, lastName, grade")
-    public List<Employee> list() {
-        return employees;
-    }
+    public static final Version VERSION = Version.get();
 
     public static void main(String[] args) throws Exception {
         Act.start();

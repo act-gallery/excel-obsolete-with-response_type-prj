@@ -42,24 +42,6 @@ public class Employee {
     @Label("级别")
     public Grade grade;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFullName(String fullName) {
-        String[] sa = fullName.split("[\\s]+");
-        this.firstName = sa[0];
-        this.lastName = sa[1];
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
-
     @Override
     public String toString() {
         return "Employee{" +
