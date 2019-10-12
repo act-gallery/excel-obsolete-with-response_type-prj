@@ -18,7 +18,8 @@ public class EmployeeService {
     }
 
     @GetAction
-    @PropertySpec(cli = "id, firstName, lastName, grade")
+    @PropertySpec(cli = "id as Id, firstName as First name, lastName as Last name, grade as Grade")
+    @Command(value = "employees", help = "list all employees")
     public List<Employee> list() {
         return employees;
     }
