@@ -20,27 +20,33 @@ package demo.excel;
  * #L%
  */
 
+import act.Act;
+import act.apidoc.sampledata.FirstNameProvider;
+import act.apidoc.sampledata.LastNameProvider;
 import act.app.App;
 import org.osgl.$;
 import org.osgl.inject.BeanSpec;
 import org.osgl.inject.Genie;
 import org.osgl.inject.loader.ElementLoaderBase;
 import org.osgl.util.C;
+import org.osgl.util.N;
 import org.osgl.util.S;
 
 import java.util.*;
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
 public class TestDataGenerator extends ElementLoaderBase<Employee> {
 
-    private List<Employee> testData;
+    @Inject
+    private FirstNameProvider firstNameProvider;
 
     @Inject
-    public TestDataGenerator(App app) {
-        generateTestData(app);
-    }
+    private LastNameProvider lastNameProvider;
+
+    private List<Employee> testData;
 
     @Override
     public Iterable<Employee> load(Map<String, Object> map, BeanSpec beanSpec, Genie genie) {
@@ -52,79 +58,21 @@ public class TestDataGenerator extends ElementLoaderBase<Employee> {
         return $.F.yes();
     }
 
-    private void generateTestData(App app) {
+    @PostConstruct
+    private void generateTestData() {
         testData = new ArrayList<>();
-        Employee.Grade[] grades = Employee.Grade.values();
-        List<String> nameList = new ArrayList<>();
-        nameList.addAll(names);
-        Collections.shuffle(nameList);
-        for (String name : nameList) {
-            S.Pair namePair = S.binarySplit(name, ' ');
-            testData.add(generateEmployee(app.cuid(), namePair.first(), namePair.last(), $.random(grades)));
+        for (int i = 0; i < 10 + N.randInt(30); ++i) {
+            testData.add(generateRandomEmployee());
         }
     }
 
-    private Employee generateEmployee(String id, String firstName, String lastName, Employee.Grade grade) {
+    private Employee generateRandomEmployee() {
         Employee employee = new Employee();
-        employee.id = id;
-        employee.firstName = firstName;
-        employee.lastName = lastName;
-        employee.grade = grade;
+        employee.id = Act.cuid();
+        employee.firstName = firstNameProvider.get();
+        employee.lastName = lastNameProvider.get();
+        employee.grade = $.random(Employee.Grade.class);
         return employee;
     }
 
-
-    private static List<String> names = C.listOf(
-            (
-                    "Jess Branch  \n" +
-                    "Ashlie Lineberry  \n" +
-                    "Greta Barrette  \n" +
-                    "Claire Spurrier  \n" +
-                    "Viva Brough  \n" +
-                    "Joannie Redwine  \n" +
-                    "Venus Farina  \n" +
-                    "Janett Gwin  \n" +
-                    "Claudine Uselton  \n" +
-                    "Gaylene Melendy  \n" +
-                    "Joe Pauls  \n" +
-                    "Nickolas Pille  \n" +
-                    "Adalberto Lashbrook  \n" +
-                    "Francina Tickle  \n" +
-                    "Jada Worden  \n" +
-                    "Keven Hommel  \n" +
-                    "Luetta Winkler  \n" +
-                    "Vernetta Bogard  \n" +
-                    "Ashli Thiel  \n" +
-                    "Marcellus Salone  \n" +
-                    "Colby Marts  \n" +
-                    "Shanti Denney  \n" +
-                    "Anissa Schiro  \n" +
-                    "Marya Samuels  \n" +
-                    "Arletta Mckechnie  \n" +
-                    "Tarsha Kull  \n" +
-                    "Darron Stoneman  \n" +
-                    "Paulina Honahni  \n" +
-                    "Jeannette Abee  \n" +
-                    "Ninfa Wann  \n" +
-                    "Alise Breton  \n" +
-                    "Siobhan Demark  \n" +
-                    "Kelsie Messineo  \n" +
-                    "Kaye Esterline  \n" +
-                    "Fallon Battaglia  \n" +
-                    "Marisela Bramblett  \n" +
-                    "Zoe Crusoe  \n" +
-                    "Yung Gordy  \n" +
-                    "Brianna Vanfossen  \n" +
-                    "Chau Ridinger  \n" +
-                    "Roscoe Nobile  \n" +
-                    "Melody Lamothe  \n" +
-                    "Nada Eis  \n" +
-                    "Sherley Whitenack  \n" +
-                    "Jasmin Nordyke  \n" +
-                    "Phuong Nies  \n" +
-                    "Erlinda Joachim  \n" +
-                    "Ruthie Soules  \n" +
-                    "Homer Baptiste  \n" +
-                    "Jovita Lahman"
-            ).split("[\n]")).map(S.F.TRIM);
 }
