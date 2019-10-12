@@ -41,6 +41,11 @@
 
     <dependency>
       <groupId>org.actframework</groupId>
+      <artifactId>act</artifactId>
+      <version>1.8.29-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.actframework</groupId>
       <artifactId>act-starter-excel</artifactId>
     </dependency>
 
