@@ -1,5 +1,7 @@
 # Excel Demo App
 
+## IMPORTANT: This application is obsolete, it is replaced by [response-type](https://github.com/act-gallery/response-type). 
+
 This application demonstrate how to render excel report in an ActFramework.
 
 ## Quick start
